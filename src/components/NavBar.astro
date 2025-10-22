@@ -13,14 +13,18 @@ const links = [
 ];
 ---
 
-<header class="sticky top-0 z-50 bg-beige/95 backdrop-blur border-b border-slate/10">
-  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+<header
+  class="sticky top-0 z-50 bg-beige/95 backdrop-blur border-b border-slate/10"
+>
+  <nav
+    class="mx-auto flex flex-nowrap max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+  >
     <a
-      class="text-lg font-semibold text-sncf transition hover:text-forest"
+      class="text-lg font-semibold text-sncf transition hover:text-forest flex-shrink-0 whitespace-nowrap mr-8"
       href="/"
       aria-label="Tourisme en train — retour à l'accueil"
     >
-      Tourisme en train
+      Le voyage commence sur les rails
     </a>
 
     <button
@@ -38,19 +42,23 @@ const links = [
       class="absolute left-0 right-0 top-full hidden flex-col gap-6 border-b border-slate/10 bg-beige px-6 py-6 lg:static lg:flex lg:flex-row lg:items-center lg:gap-6 lg:border-none lg:bg-transparent lg:p-0"
       data-menu-panel
     >
-      {links.map((link) => {
-        const isActive = currentPath === link.href;
-        return (
-          <a
-            href={link.href}
-            class={`text-base font-medium transition-colors duration-200 ${
-              isActive ? "text-forest font-semibold" : "text-slate/80 hover:text-sncf"
-            }`}
-          >
-            {link.label}
-          </a>
-        );
-      })}
+      {
+        links.map((link) => {
+          const isActive = currentPath === link.href;
+          return (
+            <a
+              href={link.href}
+              class={`text-base font-medium transition-colors duration-200 ${
+                isActive
+                  ? "text-forest font-semibold"
+                  : "text-slate/80 hover:text-sncf"
+              }`}
+            >
+              {link.label}
+            </a>
+          );
+        })
+      }
 
       <a
         href="/visualisation"

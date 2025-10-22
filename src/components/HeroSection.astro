@@ -24,11 +24,11 @@ const { tagline, title, subtitle, actions = [] } = Astro.props as Props;
   <div class="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-24 sm:px-6 lg:flex-row lg:items-center lg:px-8">
     <div class="max-w-2xl space-y-6" data-reveal>
       {tagline && (
-        <p class="text-xs uppercase tracking-[0.5em] text-snow/70">
+        <p class="text-xs uppercase tracking-[0.5em] text-white">
           {tagline}
         </p>
       )}
-      <h1 class="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+      <h1 class="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl text-white">
         {title}
       </h1>
       <p class="text-lg text-snow/90 sm:text-xl">
