@@ -1,0 +1,123 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import GraphBlock from "../components/GraphBlock.astro";
+import CallToAction from "../components/CallToAction.astro";
+import PlotFigure from "../components/PlotFigure.astro";
+import { plotOptions4 } from "../data/plots";
+
+const benefits = [
+  {
+    title: "Un temps utile",
+    description:
+      "Lecture, travail, repos : 68 % des voyageurs déclarent profiter du trajet pour eux-mêmes. Un angle à valoriser en communication.",
+  },
+  {
+    title: "Un budget maîtrisé",
+    description:
+      "Avec les offres plafonnées et les abonnements type TGVMax, le train devient compétitif, surtout sur les longs week-ends.",
+  },
+  {
+    title: "Une logistique apaisée",
+    description:
+      "Départ et arrivée en centre-ville, pas de parking à prévoir, pas d’embouteillage de retour : un argument anti-stress puissant.",
+  },
+];
+---
+
+<Layout
+  title="Le train — Expérience voyageur et bénéfices concrets"
+  description="Analyse des coûts, bénéfices ressentis et arguments clés pour inciter au tourisme en train."
+>
+  <Header
+    eyebrow="Expérience voyageur"
+    title="Le train, un temps qui compte autant que la destination"
+    description="Au-delà du carbone, le rail propose une expérience qualitative : confort, temps utile, arrivée directe au cœur des villes. Cette page assemble données et récits pour convaincre."
+  >
+    <a
+      href="/impact"
+      class="inline-flex items-center justify-center rounded-full border border-sncf/40 px-5 py-2 text-sm font-semibold text-sncf transition hover:border-sncf hover:text-forest"
+    >
+      Retourner vers l’impact
+    </a>
+  </Header>
+
+  <section class="mx-auto mt-4 grid max-w-6xl gap-6 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+    {benefits.map((benefit) => (
+      <article class="rounded-3xl border border-slate/10 bg-snow/90 p-6 shadow-sm" data-reveal>
+        <h3 class="text-lg font-semibold text-slate">{benefit.title}</h3>
+        <p class="mt-3 text-sm text-slate/80">{benefit.description}</p>
+      </article>
+    ))}
+  </section>
+
+  <GraphBlock
+    eyebrow="Comparaison budgétaire"
+    title="Train vs voiture : l’écart se resserre depuis 2010"
+    description="Les courbes montrent un rapprochement des coûts au 100 km, tandis que la ligne pointillée verte estime le CO₂ économisé. Un récit double : maîtriser son budget tout en faisant un geste pour la planète."
+    legend="Lecture : pour 100 km, le train coûte 12,3 € en 2024 contre 10,7 € pour la voiture. La ligne verte indique le gain carbone."
+  >
+    <PlotFigure slot="default" options={plotOptions4} />
+  </GraphBlock>
+
+  <GraphBlock
+    eyebrow="Filtrer par mode"
+    title="Explorer l’évolution des coûts par transport"
+    description="Utilisez le filtre pour observer séparément train et voiture. Idéal pour enrichir une présentation et détailler les années clés."
+    reverse
+  >
+    <div class="space-y-4">
+      <label class="text-sm font-semibold text-slate" for="filtreMode">
+        Filtrer par mode :
+      </label>
+      <select
+        id="filtreMode"
+        class="w-full rounded-full border border-slate/20 bg-snow px-4 py-2 text-sm text-slate focus:border-sncf focus:outline-none focus:ring-2 focus:ring-sncf/40"
+      >
+        <option value="Tous">Tous</option>
+        <option value="Train">Train</option>
+        <option value="Voiture">Voiture</option>
+      </select>
+      <div id="graph-couts" class="min-h-[360px]"></div>
+    </div>
+    <script type="module" src="/scripts/evolution.js"></script>
+  </GraphBlock>
+
+  <SectionTitle
+    eyebrow="Argumentaire"
+    title="Mettre en scène les points forts du rail"
+    description="Ces données peuvent alimenter ateliers, dossiers de presse ou campagnes d’affichage en gare."
+  />
+
+  <GraphBlock
+    eyebrow="Perception"
+    title="Les avantages du train face aux contraintes de la voiture"
+    description="Un nuage de points pour visualiser les bénéfices ressentis. Chaque point raconte une histoire : confort, sérénité, mobilité de proximité."
+  >
+    <div class="space-y-4">
+      <label class="text-sm font-semibold text-slate" for="filtreAvantages">
+        Filtrer par type :
+      </label>
+      <select
+        id="filtreAvantages"
+        class="w-full rounded-full border border-slate/20 bg-snow px-4 py-2 text-sm text-slate focus:border-sncf focus:outline-none focus:ring-2 focus:ring-sncf/40"
+      >
+        <option value="Tous">Tous</option>
+        <option value="Avantage Train">Avantage Train</option>
+        <option value="Inconvénient Voiture">Inconvénient Voiture</option>
+      </select>
+      <div id="graph-avantages" class="min-h-[360px]"></div>
+    </div>
+    <script type="module" src="/scripts/avantages.js"></script>
+  </GraphBlock>
+
+  <CallToAction
+    title="Prêt à mettre le train au cœur de votre campagne ?"
+    subtitle="Poursuivez avec le réseau ferroviaire et les destinations accessibles pour guider concrètement les voyageurs."
+    primaryLabel="Explorer le réseau"
+    primaryHref="/reseau"
+    secondaryLabel="Accéder aux visualisations complètes"
+    secondaryHref="/visualisation"
+  />
+</Layout>

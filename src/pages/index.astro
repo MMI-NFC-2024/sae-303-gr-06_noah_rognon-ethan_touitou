@@ -1,21 +1,101 @@
 ---
-import PlotFigure from "../components/PlotFigure.astro";
 import Layout from "../layouts/Layout.astro";
-import * as Plot from "@observablehq/plot";
-import penguins from "../assets/penguins.json";
+import HeroSection from "../components/HeroSection.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import GraphBlock from "../components/GraphBlock.astro";
+import CallToAction from "../components/CallToAction.astro";
+import PlotFigure from "../components/PlotFigure.astro";
+import { plotOptions2, plotOptions3 } from "../data/plots";
+
+const pathways = [
+  {
+    title: "Évaluer son impact",
+    description:
+      "Comprendre les émissions évitées en privilégiant le rail sur les trajets longue distance.",
+    href: "/impact",
+    label: "Mesurer le CO₂ évité",
+  },
+  {
+    title: "Choisir son itinéraire",
+    description:
+      "Explorer le réseau ferroviaire et repérer les gares connectées aux destinations culturelles.",
+    href: "/reseau",
+    label: "Explorer le réseau",
+  },
+  {
+    title: "Planifier ses escapades",
+    description:
+      "Identifier festivals, sites touristiques et offres TGVMax à portée de train.",
+    href: "/culture",
+    label: "Préparer un voyage",
+  },
+];
 ---
 
-<Layout>
-  <h1 class="text-2xl">Test Astro et Plot (Observablehq)</h1>
-  <PlotFigure
-    options={{
-      marks: [
-        Plot.dot(penguins, {
-          x: "culmen_length_mm",
-          y: "culmen_depth_mm",
-          stroke: "species",
-        }),
-      ],
-    }}
+<Layout
+  title="Tourisme en train — Voyage narratif et data pour voyager autrement"
+  description="Un mini-site narratif pour explorer le tourisme en train : impact carbone, destinations culturelles, réseau ferroviaire et projections futures."
+>
+  <HeroSection
+    tagline="Tourisme bas-carbone"
+    title="Et si le voyage commençait en gare ?"
+    subtitle="Cartes, données et récits pour redécouvrir la France en train, connecter les territoires et voyager avec légèreté."
+    actions={[
+      { label: "Découvrir l'impact", href: "/impact" },
+      { label: "Voir toutes les données", href: "/visualisation", variant: "secondary" },
+    ]}
+  />
+
+  <SectionTitle
+    eyebrow="Votre itinéraire"
+    title="Un parcours immersif en six étapes"
+    description="Du constat climatique à la projection 2035, chaque page condense données ouvertes, visualisations interactives et récits inspirants."
+    align="center"
+  />
+
+  <section class="mx-auto mt-12 grid max-w-6xl gap-6 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+    {pathways.map((path) => (
+      <article
+        class="flex flex-col gap-4 rounded-3xl border border-slate/10 bg-snow/90 p-6 shadow-md shadow-sncf/5 transition hover:-translate-y-1 hover:shadow-lg hover:shadow-sncf/10"
+        data-reveal
+      >
+        <h3 class="text-xl font-semibold text-slate">{path.title}</h3>
+        <p class="text-sm text-slate/80">{path.description}</p>
+        <a
+          href={path.href}
+          class="inline-flex items-center gap-2 text-sm font-semibold text-sncf hover:text-forest"
+        >
+          {path.label} →
+        </a>
+      </article>
+    ))}
+  </section>
+
+  <GraphBlock
+    eyebrow="Pourquoi changer ?"
+    title="Le train, champion du climat sur les trajets de 500 km"
+    description="Sur un trajet moyen, la voiture émet dix fois plus de CO₂ qu’un train grandes lignes. Visualiser ce différentiel rend tangible le pouvoir de choix de chaque voyageur."
+    legend="Lecture : en 2024, un trajet de 500 km génère environ 4 kg de CO₂ en train, 40 kg en voiture et 70 kg en avion."
+  >
+    <PlotFigure slot="default" options={plotOptions2} />
+  </GraphBlock>
+
+  <GraphBlock
+    eyebrow="S’évader autrement"
+    title="Des festivals accessibles en moins de 10 km de gare"
+    description="De la Bretagne au Sud-Ouest, le maillage ferroviaire relie des scènes culturelles variées. Cette carte met en lumière les destinations déjà prêtes pour un tourisme bas-carbone."
+    legend="Vert : festival à moins de 10 km d’une gare. Rouge : festival nécessitant un trajet complémentaire."
+    reverse
+  >
+    <PlotFigure slot="default" options={plotOptions3} />
+  </GraphBlock>
+
+  <CallToAction
+    title="Prêt à voyager différemment ?"
+    subtitle="Poursuivez l’exploration : chaque page raconte une facette du tourisme en train, des infrastructures existantes aux projections futures."
+    primaryLabel="Commencer par l’impact"
+    primaryHref="/impact"
+    secondaryLabel="Accéder au Data Lab"
+    secondaryHref="/visualisation"
   />
 </Layout>

@@ -1,0 +1,44 @@
+---
+type Props = {
+  title: string;
+  subtitle: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+};
+
+const {
+  title,
+  subtitle,
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
+} = Astro.props as Props;
+---
+
+<section class="relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-sncf/10 bg-gradient-to-br from-sncf via-sncf/95 to-forest px-6 py-16 text-snow shadow-xl sm:px-10" data-reveal>
+  <div class="mx-auto flex max-w-3xl flex-col items-start gap-6">
+    <h2 class="text-3xl font-semibold sm:text-4xl">{title}</h2>
+    <p class="text-base text-snow/80 sm:text-lg">
+      {subtitle}
+    </p>
+    <div class="flex flex-wrap gap-4">
+      <a
+        href={primaryHref}
+        class="inline-flex items-center justify-center rounded-full bg-snow px-6 py-3 text-sm font-semibold text-sncf transition hover:bg-beige"
+      >
+        {primaryLabel}
+      </a>
+      {secondaryLabel && secondaryHref && (
+        <a
+          href={secondaryHref}
+          class="inline-flex items-center justify-center rounded-full border border-snow/60 px-6 py-3 text-sm font-semibold text-snow transition hover:border-snow"
+        >
+          {secondaryLabel}
+        </a>
+      )}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,95 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import GraphBlock from "../components/GraphBlock.astro";
+import CallToAction from "../components/CallToAction.astro";
+
+const levers = [
+  {
+    title: "Transfert modal",
+    text: "Basculement progressif de 10 % des trajets voiture vers le train d’ici 2035. Effets sur la fréquentation et sur les émissions.",
+  },
+  {
+    title: "Offre enrichie",
+    text: "Fréquences accrues, gares rénovées, services à bord repensés : des actions structurantes pour fidéliser les publics.",
+  },
+  {
+    title: "Récits inspirants",
+    text: "Campagnes centrées sur l’expérience : voyage immersif, tourisme de proximité, nouvelles mobilités douces en correspondance.",
+  },
+];
+---
+
+<Layout
+  title="Futur — Scénarios de mobilité 2035"
+  description="Projections de fréquentation et de réduction d’émissions selon différents scénarios de transition modale."
+>
+  <Header
+    eyebrow="Prospective"
+    title="2035 : et si 10 % des trajets voiture passaient au rail ?"
+    description="Les scénarios ci-dessous s’appuient sur les objectifs climatiques français et les tendances actuelles de fréquentation. Ils aident à se projeter collectivement."
+  >
+    <a
+      href="/impact"
+      class="inline-flex items-center justify-center rounded-full border border-sncf/40 px-5 py-2 text-sm font-semibold text-sncf transition hover:border-sncf hover:text-forest"
+    >
+      Revenir à l’impact actuel
+    </a>
+  </Header>
+
+  <section class="mx-auto mt-4 grid max-w-6xl gap-6 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+    {levers.map((lever) => (
+      <article class="rounded-3xl border border-slate/10 bg-snow/90 p-6 shadow-sm" data-reveal>
+        <h3 class="text-lg font-semibold text-slate">{lever.title}</h3>
+        <p class="mt-3 text-sm text-slate/80">{lever.text}</p>
+      </article>
+    ))}
+  </section>
+
+  <GraphBlock
+    eyebrow="Part modale"
+    title="Évolution des modes de transport (2010–2024)"
+    description="Ce graphique retrace les parts modales observées et la tendance récente : hausse légère du rail, recul de la voiture. Une base solide pour engager la discussion sur les objectifs 2035."
+    legend="Survolez une série pour afficher la part modale d’une année donnée."
+  >
+    <div id="graph-partmodale" class="min-h-[420px]"></div>
+    <script type="module" src="/scripts/partModale.js"></script>
+  </GraphBlock>
+
+  <GraphBlock
+    eyebrow="Projection"
+    title="Mobilité 2035 : fréquentation et CO₂"
+    description="Simulez l’impact d’un report modal de 10 % : la fréquentation ferroviaire grimpe, les émissions globales baissent. Un scénario inspirant pour vos plaidoyers."
+    reverse
+  >
+    <div id="graph-mobilite2035" class="min-h-[420px]"></div>
+    <script type="module" src="/scripts/mobilite2035.js"></script>
+  </GraphBlock>
+
+  <section class="mx-auto mt-16 max-w-4xl space-y-12 px-4 sm:px-6 lg:px-8">
+    <article class="rounded-3xl border border-slate/10 bg-snow/90 p-8 shadow-sm" data-reveal>
+      <h3 class="text-xl font-semibold text-slate">Construire un plan d’action</h3>
+      <p class="mt-4 text-base text-slate/80">
+        Combinez ces projections avec les cartes d’accessibilité pour cibler les gares à fort potentiel. Priorisez les corridors où
+        l’offre TGVMax est tendue et où la densité de points d’intérêt est forte.
+      </p>
+    </article>
+    <article class="rounded-3xl border border-slate/10 bg-snow/90 p-8 shadow-sm" data-reveal>
+      <h3 class="text-xl font-semibold text-slate">Mobiliser les partenaires</h3>
+      <p class="mt-4 text-base text-slate/80">
+        Offices de tourisme, autorités organisatrices, SNCF : les données communes nourrissent un récit partagé sur le tourisme
+        bas-carbone de proximité.
+      </p>
+    </article>
+  </section>
+
+  <CallToAction
+    title="Prêt à agir dès maintenant ?"
+    subtitle="Retournez vers les cartes d’accessibilité ou vers le Data Lab pour développer vos supports de communication."
+    primaryLabel="Mesurer l’accessibilité"
+    primaryHref="/accessibilite"
+    secondaryLabel="Ouvrir le Data Lab"
+    secondaryHref="/visualisation"
+  />
+</Layout>

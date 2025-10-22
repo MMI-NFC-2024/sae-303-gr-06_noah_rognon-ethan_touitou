@@ -1,0 +1,132 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import GraphBlock from "../components/GraphBlock.astro";
+import CallToAction from "../components/CallToAction.astro";
+import PlotFigure from "../components/PlotFigure.astro";
+import { plotOptions1 } from "../data/plots";
+
+const insights = [
+  {
+    title: "Capillarité nationale",
+    text: "Plus de 3000 gares voyageurs et une maille serrée d’itinéraires régionaux : le réseau matérialise une promesse d’accessibilité.",
+  },
+  {
+    title: "Ancrage urbain",
+    text: "Les gares sont des hubs culturels : musées, salles de spectacle et tiers-lieux se développent à quelques rues des quais.",
+  },
+  {
+    title: "Potentiel touristique",
+    text: "En combinant réseau ferré et cartes touristiques, on révèle des axes secondaires riches en découvertes durables.",
+  },
+];
+---
+
+<Layout
+  title="Réseau — La France des gares et des lignes"
+  description="Cartes et analyses pour valoriser le maillage ferroviaire français et son lien avec la culture."
+>
+  <Header
+    eyebrow="Cartographie"
+    title="Un réseau ferré qui relie les territoires et les expériences"
+    description="Visualisez la trame ferroviaire nationale, ses gares et les équipements culturels qui gravitent autour. Cette page outille vos récits territoriaux."
+  >
+    <a
+      href="/culture"
+      class="inline-flex items-center justify-center rounded-full bg-sncf px-5 py-2 text-sm font-semibold text-snow transition hover:bg-forest"
+    >
+      Passer à la culture
+    </a>
+  </Header>
+
+  <section class="mx-auto mt-4 grid max-w-6xl gap-6 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+    {insights.map((item) => (
+      <article class="rounded-3xl border border-slate/10 bg-snow/90 p-6 shadow-sm" data-reveal>
+        <h3 class="text-lg font-semibold text-slate">{item.title}</h3>
+        <p class="mt-3 text-sm text-slate/80">{item.text}</p>
+      </article>
+    ))}
+  </section>
+
+  <GraphBlock
+    eyebrow="Vue d’ensemble"
+    title="Carte du réseau ferroviaire et des lieux culturels"
+    description="Les lignes (noires) composent l’ossature, les gares (rouges) sont autant de portes, les équipements culturels (bleus) incarnent la vie locale. Idéal pour une introduction macro."
+    legend="Source : données SNCF (gares, lignes) et Google Basilic (équipements culturels)."
+  >
+    <PlotFigure slot="default" options={plotOptions1} />
+  </GraphBlock>
+
+  <SectionTitle
+    eyebrow="Explorer"
+    title="Affinez l’affichage selon vos besoins"
+    description="Utilisez les filtres pour concentrer la carte sur les gares ou sur les lignes. Une façon simple d’adapter la narration à votre public."
+  />
+
+  <GraphBlock
+    eyebrow="Filtres interactifs"
+    title="Carte filtrable du réseau"
+    description="Montrez uniquement les gares pour parler service public, ou seulement les lignes pour insister sur la connectivité inter-régions."
+    reverse
+  >
+    <div class="space-y-4">
+      <label class="text-sm font-semibold text-slate" for="filtre-carte">
+        Filtrer l’affichage :
+      </label>
+      <select
+        id="filtre-carte"
+        class="w-full rounded-full border border-slate/20 bg-snow px-4 py-2 text-sm text-slate focus:border-sncf focus:outline-none focus:ring-2 focus:ring-sncf/40"
+      >
+        <option value="tous">Toutes les données</option>
+        <option value="gares">Seulement les gares</option>
+        <option value="lignes">Seulement les lignes</option>
+      </select>
+      <div id="graph-reseau-ferroviaire" class="min-h-[460px]"></div>
+    </div>
+    <script type="module" src="/scripts/reseau-ferroviaire.js"></script>
+  </GraphBlock>
+
+  <SectionTitle
+    eyebrow="Capacité"
+    title="Mesurer la tension sur les axes"
+    description="Les données TGVMax éclairent la disponibilité des places : un indicateur clé pour organiser la médiation et les campagnes."
+  />
+
+  <GraphBlock
+    eyebrow="Lecture hebdomadaire"
+    title="Disponibilité moyenne des offres TGVMax"
+    description="Identifiez d’un coup d’œil les axes saturés et ceux encore sous-exploités. Les zones claires signalent des opportunités à promouvoir."
+  >
+    <div id="graph-tgvmax" class="min-h-[420px]"></div>
+    <script type="module" src="/scripts/tgvmax.js"></script>
+  </GraphBlock>
+
+  <GraphBlock
+    eyebrow="Suivi fin"
+    title="Disponibilité par axe et par jour"
+    description="Chaque cellule correspond à un jour et un axe. Les étoiles indiquent un taux supérieur à 50 %. Pratique pour anticiper les pics de fréquentation."
+    reverse
+  >
+    <div id="ah" class="min-h-[420px]"></div>
+    <script type="module" src="/scripts/disponibilite.js"></script>
+  </GraphBlock>
+
+  <GraphBlock
+    eyebrow="Comparaison"
+    title="Taux de disponibilité par axe TGV"
+    description="Analysez les performances par ligne pour adapter votre stratégie tarifaire ou marketing."
+  >
+    <div id="graph-tgvmax-axe" class="min-h-[420px]"></div>
+    <script type="module" src="/scripts/tgvmaxDispo.js"></script>
+  </GraphBlock>
+
+  <CallToAction
+    title="Relier le réseau aux destinations"
+    subtitle="Poursuivez l’exploration avec la carte des festivals et des sites culturels accessibles en train."
+    primaryLabel="Explorer la culture"
+    primaryHref="/culture"
+    secondaryLabel="Voir toutes les visualisations"
+    secondaryHref="/visualisation"
+  />
+</Layout>

@@ -1,0 +1,101 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import GraphBlock from "../components/GraphBlock.astro";
+import CallToAction from "../components/CallToAction.astro";
+
+const focus = [
+  {
+    title: "Rayon de 5 km : tourisme doux",
+    text: "Un cercle parfait pour promouvoir la marche et le vélo depuis la gare. Idéal pour les destinations nature.",
+  },
+  {
+    title: "Rayon de 10 km : territoire élargi",
+    text: "En ajoutant bus locaux ou navettes, on connecte stations balnéaires, villages classés et sites patrimoniaux.",
+  },
+  {
+    title: "Rayon de 20 km : coopération intercommunale",
+    text: "Une échelle pertinente pour imaginer des pass touristiques combinant TER, bus et vélo, tout en restant bas-carbone.",
+  },
+];
+---
+
+<Layout
+  title="Accessibilité — Mesurer le potentiel autour des gares"
+  description="Cartes interactives pour analyser la densité de points d’intérêt accessibles en train."
+>
+  <Header
+    eyebrow="Territoires"
+    title="La gare comme hub du tourisme durable"
+    description="Combien de lieux touristiques, patrimoniaux ou culturels peut-on rejoindre à partir d’une gare ? Cette page outille les collectivités et offices de tourisme."
+  >
+    <a
+      href="/futur"
+      class="inline-flex items-center justify-center rounded-full bg-sncf px-5 py-2 text-sm font-semibold text-snow transition hover:bg-forest"
+    >
+      Se projeter en 2035
+    </a>
+  </Header>
+
+  <SectionTitle
+    eyebrow="Lecture guidée"
+    title="Choisissez un rayon, observez la densité"
+    description="Trois échelles pour raconter l’accessibilité : proximité immédiate, bassin élargi, coopération territoriale."
+  />
+
+  <section class="mx-auto mt-4 grid max-w-6xl gap-6 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+    {focus.map((item) => (
+      <article class="rounded-3xl border border-slate/10 bg-snow/90 p-6 shadow-sm" data-reveal>
+        <h3 class="text-lg font-semibold text-slate">{item.title}</h3>
+        <p class="mt-3 text-sm text-slate/80">{item.text}</p>
+      </article>
+    ))}
+  </section>
+
+  <GraphBlock
+    eyebrow="Vue globale"
+    title="Accessibilité touristique autour des gares"
+    description="Cette carte croise gares et points d’intérêt. Parfait pour identifier les hubs où un simple panneau ou une navette attitrée peut transformer l’expérience."
+    legend="Survolez une gare pour connaître le nombre de points d’intérêt accessibles et les catégories représentées."
+  >
+    <div id="graph-accessibilite" class="min-h-[420px]"></div>
+    <script type="module" src="/scripts/tourisme.js"></script>
+  </GraphBlock>
+
+  <GraphBlock
+    eyebrow="Scénarios"
+    title="Densité de points d’intérêt selon le rayon"
+    description="Ajustez le rayon et le type de POI pour construire des parcours thématiques : patrimoine, nature, hébergement… Un outil d’aide à la décision rapide."
+    reverse
+  >
+    <div id="graph-accessibilite-rayon" class="min-h-[440px]"></div>
+    <script type="module" src="/scripts/accessibilite-rayon.js"></script>
+  </GraphBlock>
+
+  <section class="mx-auto mt-16 max-w-4xl space-y-12 px-4 sm:px-6 lg:px-8">
+    <article class="rounded-3xl border border-slate/10 bg-snow/90 p-8 shadow-sm" data-reveal>
+      <h3 class="text-xl font-semibold text-slate">Construire des itinéraires bas-carbone</h3>
+      <p class="mt-4 text-base text-slate/80">
+        Associez ces cartes à vos bases d’hébergements ou de vélos en libre-service. Vous obtenez des propositions de séjours « sans
+        voiture » prêtes à être diffusées sur vos supports de communication.
+      </p>
+    </article>
+    <article class="rounded-3xl border border-slate/10 bg-snow/90 p-8 shadow-sm" data-reveal>
+      <h3 class="text-xl font-semibold text-slate">Identifier les manques</h3>
+      <p class="mt-4 text-base text-slate/80">
+        Les zones à forte fréquentation mais peu de points d’intérêt signalent un besoin d’orientation, de navette ou de location
+        douce. C’est là que l’accompagnement des voyageurs fait la différence.
+      </p>
+    </article>
+  </section>
+
+  <CallToAction
+    title="Cap vers la transition"
+    subtitle="Projetez-vous maintenant en 2035 : quelles trajectoires possibles pour la part modale du train et les réductions d’émissions ?"
+    primaryLabel="Découvrir les scénarios futur"
+    primaryHref="/futur"
+    secondaryLabel="Accéder à toutes les visualisations"
+    secondaryHref="/visualisation"
+  />
+</Layout>

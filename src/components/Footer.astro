@@ -1,0 +1,54 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="mt-20 bg-sncf text-snow">
+  <div class="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-12 sm:px-6 lg:px-8 lg:flex-row lg:justify-between">
+    <div class="max-w-md space-y-3" data-reveal>
+      <p class="text-sm uppercase tracking-[0.3em] text-snow/70">
+        Tourisme en train
+      </p>
+      <p class="text-2xl font-semibold">
+        Redécouvrir la France à travers ses gares, un voyage bas-carbone qui relie territoires et imaginaires.
+      </p>
+    </div>
+
+    <div class="grid flex-1 gap-8 sm:grid-cols-2" data-reveal>
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-widest text-snow/70">
+          Navigation
+        </h3>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li><a class="text-white"hover:text-forest" href="/">Accueil</a></li>
+          <li><a class="text-white hover:text-forest" href="/impact">Impact</a></li>
+          <li><a class="text-white hover:text-forest" href="/train">Le train</a></li>
+          <li><a class="text-white hover:text-forest" href="/reseau">Réseau</a></li>
+          <li><a class="text-white hover:text-forest" href="/culture">Culture</a></li>
+          <li><a class="text-white hover:text-forest" href="/accessibilite">Accessibilité</a></li>
+          <li><a class="text-white hover:text-forest" href="/futur">Futur</a></li>
+          <li><a class="text-white hover:text-forest" href="/visualisation">Data Lab</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-semibold uppercase tracking-widest text-snow/70">
+          Contact & crédits
+        </h3>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li>Projet SAE Open Data – Université MMI</li>
+          <li>
+            <a href="mailto:noah.rognon@gmail.com" class="text-white hover:text-forest">
+              noah.rognon@gmail.com
+            </a>
+          </li>
+          <li>Données ouvertes : SNCF, ADEME, DataTourisme</li>
+          <li>Design & narration : Noah ROGNON , Ethan TOUITOU, Morgan URBANO VIZEU</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="border-t border-snow/10 py-4 text-center text-xs text-snow/70">
+    © {currentYear} Tourisme en train — Tous droits réservés.
+  </div>
+</footer>

@@ -1,0 +1,69 @@
+---
+type Action = {
+  label: string;
+  href: string;
+  variant?: "primary" | "secondary";
+};
+
+type Props = {
+  tagline?: string;
+  title: string;
+  subtitle: string;
+  actions?: Action[];
+};
+
+const { tagline, title, subtitle, actions = [] } = Astro.props as Props;
+---
+
+<section class="relative overflow-hidden bg-gradient-to-br from-sncf via-sncf/90 to-forest text-snow">
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute -left-12 top-10 h-52 w-52 rounded-full bg-snow/20 blur-3xl"></div>
+    <div class="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-forest/40 blur-3xl"></div>
+  </div>
+
+  <div class="mx-auto flex max-w-6xl flex-col gap-10 px-4 py-24 sm:px-6 lg:flex-row lg:items-center lg:px-8">
+    <div class="max-w-2xl space-y-6" data-reveal>
+      {tagline && (
+        <p class="text-xs uppercase tracking-[0.5em] text-snow/70">
+          {tagline}
+        </p>
+      )}
+      <h1 class="text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
+        {title}
+      </h1>
+      <p class="text-lg text-snow/90 sm:text-xl">
+        {subtitle}
+      </p>
+
+      {actions.length > 0 && (
+        <div class="flex flex-wrap gap-4 pt-4">
+          {actions.map((action) => (
+            <a
+              href={action.href}
+              class={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition ${
+                action.variant === "secondary"
+                  ? "border border-snow/40 text-snow hover:border-snow"
+                  : "bg-snow text-sncf hover:bg-beige"
+              }`}
+            >
+              {action.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+
+    <div class="relative ml-auto w-full max-w-sm rounded-3xl border border-snow/10 bg-snow/10 p-6 backdrop-blur" data-reveal>
+      <p class="text-sm uppercase tracking-[0.4em] text-snow/70">
+        Voyage bas-carbone
+      </p>
+      <p class="mt-4 text-lg font-medium text-snow/90">
+        Chaque trajet en train émet jusqu’à <span class="font-semibold text-snow">20× moins de CO₂</span> qu’en voiture.
+      </p>
+      <p class="mt-6 text-sm text-snow/70">
+        Les données open data croisées révèlent les destinations culturelles accessibles par la voie ferrée. Explorez,
+        comparez et préparez votre prochain voyage responsable.
+      </p>
+    </div>
+  </div>
+</section>

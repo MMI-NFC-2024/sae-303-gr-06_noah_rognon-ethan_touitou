@@ -1,0 +1,39 @@
+---
+type Props = {
+  title: string;
+  eyebrow?: string;
+  description?: string;
+  legend?: string;
+  reverse?: boolean;
+};
+
+const { title, eyebrow, description, legend, reverse = false } = Astro.props as Props;
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+  <div
+    class={`grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] ${
+      reverse ? "lg:grid-flow-col-dense" : ""
+    }`}
+  >
+    <div class={`space-y-6 ${reverse ? "lg:order-2" : ""}`} data-reveal>
+      {eyebrow && (
+        <p class="text-xs uppercase tracking-[0.4em] text-forest">
+          {eyebrow}
+        </p>
+      )}
+      <h3 class="text-2xl font-semibold text-slate sm:text-3xl">{title}</h3>
+      {description && <p class="text-base text-slate/80">{description}</p>}
+      {legend && (
+        <div class="rounded-2xl border border-slate/10 bg-snow/60 p-4 text-sm text-slate/80 shadow-sm">
+          {legend}
+        </div>
+      )}
+      <slot name="actions" />
+    </div>
+
+    <div class={`relative rounded-3xl border border-slate/10 bg-snow/90 p-4 shadow-lg ${reverse ? "lg:order-1" : ""}`} data-reveal>
+      <slot />
+    </div>
+  </div>
+</section>

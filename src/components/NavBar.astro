@@ -1,0 +1,90 @@
+---
+const { currentPath = "/" } = Astro.props;
+
+const links = [
+  { href: "/", label: "Accueil" },
+  { href: "/impact", label: "Impact" },
+  { href: "/train", label: "Le train" },
+  { href: "/reseau", label: "Réseau" },
+  { href: "/culture", label: "Culture" },
+  { href: "/accessibilite", label: "Accessibilité" },
+  { href: "/futur", label: "Futur" },
+  { href: "/visualisation", label: "Data Lab" },
+];
+---
+
+<header class="sticky top-0 z-50 bg-beige/95 backdrop-blur border-b border-slate/10">
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+    <a
+      class="text-lg font-semibold text-sncf transition hover:text-forest"
+      href="/"
+      aria-label="Tourisme en train — retour à l'accueil"
+    >
+      Tourisme en train
+    </a>
+
+    <button
+      class="inline-flex items-center justify-center rounded-md border border-slate/20 px-3 py-2 text-sm font-medium text-slate focus:outline-none focus-visible:ring-2 focus-visible:ring-sncf/60 lg:hidden"
+      type="button"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+      data-menu-toggle
+    >
+      <span class="sr-only">Ouvrir le menu</span>
+      ☰
+    </button>
+
+    <div
+      class="absolute left-0 right-0 top-full hidden flex-col gap-6 border-b border-slate/10 bg-beige px-6 py-6 lg:static lg:flex lg:flex-row lg:items-center lg:gap-6 lg:border-none lg:bg-transparent lg:p-0"
+      data-menu-panel
+    >
+      {links.map((link) => {
+        const isActive = currentPath === link.href;
+        return (
+          <a
+            href={link.href}
+            class={`text-base font-medium transition-colors duration-200 ${
+              isActive ? "text-forest font-semibold" : "text-slate/80 hover:text-sncf"
+            }`}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+
+      <a
+        href="/visualisation"
+        class="inline-flex items-center justify-center rounded-full bg-sncf px-4 py-2 text-sm font-semibold text-snow shadow-md shadow-sncf/20 transition hover:bg-forest hover:shadow-forest/20"
+      >
+        Explorer les données
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script is:inline>
+  const toggle = document.querySelector("[data-menu-toggle]");
+  const panel = document.querySelector("[data-menu-panel]");
+
+  if (!(toggle && panel)) return;
+
+  const syncState = () => {
+    if (window.innerWidth >= 1024) {
+      panel.classList.remove("hidden");
+      toggle.setAttribute("aria-expanded", "true");
+    } else {
+      panel.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  };
+
+  syncState();
+
+  toggle.addEventListener("click", () => {
+    if (window.innerWidth >= 1024) return;
+    const isHidden = panel.classList.toggle("hidden");
+    toggle.setAttribute("aria-expanded", (!isHidden).toString());
+  });
+
+  window.addEventListener("resize", syncState);
+</script>

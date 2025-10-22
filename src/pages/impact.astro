@@ -1,0 +1,118 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import GraphBlock from "../components/GraphBlock.astro";
+import CallToAction from "../components/CallToAction.astro";
+import PlotFigure from "../components/PlotFigure.astro";
+import { plotOptions2 } from "../data/plots";
+
+const stats = [
+  {
+    label: "Train grandes lignes",
+    value: "1,2 g",
+    description: "de CO₂ / passager-km (ADEME 2024)",
+  },
+  {
+    label: "Voiture thermique",
+    value: "104 g",
+    description: "de CO₂ / passager-km (moyenne nationale)",
+  },
+  {
+    label: "Gain potentiel",
+    value: "−90 %",
+    description: "d’émissions sur un trajet 500 km en basculant vers le rail",
+  },
+];
+---
+
+<Layout
+  title="Impact — Pourquoi le train change la donne"
+  description="Visualisations et repères pour comprendre l’avantage environnemental du train face aux autres modes de transport."
+>
+  <Header
+    eyebrow="Constat climatique"
+    title="Voyager en train, c’est réduire immédiatement son empreinte"
+    description="Les transports représentent près de 30 % des émissions françaises. Chaque trajet basculé vers le rail fait la différence. Cette page condense les preuves chiffrées pour nourrir vos campagnes de sensibilisation."
+  >
+    <a
+      href="/train"
+      class="inline-flex items-center justify-center rounded-full bg-sncf px-5 py-2 text-sm font-semibold text-snow transition hover:bg-forest"
+    >
+      Explorer les bénéfices côté usagers
+    </a>
+  </Header>
+
+  <section class="mx-auto mt-4 grid max-w-6xl gap-4 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+    {stats.map((stat) => (
+      <article
+        class="rounded-3xl border border-slate/10 bg-snow/90 p-6 text-center shadow-sm"
+        data-reveal
+      >
+        <p class="text-xs uppercase tracking-[0.4em] text-sncf/80">
+          {stat.label}
+        </p>
+        <p class="mt-4 text-4xl font-semibold text-forest">{stat.value}</p>
+        <p class="mt-2 text-sm text-slate/80">{stat.description}</p>
+      </article>
+    ))}
+  </section>
+
+  <GraphBlock
+    eyebrow="Comparaison des émissions"
+    title="Sur 500 km, le rail divise par dix les émissions"
+    description="Avion, voiture, train : cette visualisation résume la hiérarchie carbone des trajets moyens. Un argument clé pour convaincre voyageurs, festivals ou offices de tourisme."
+    legend="Source : ADEME, SNCF — émissions moyennes estimées pour un trajet de 500 km en 2024."
+  >
+    <PlotFigure slot="default" options={plotOptions2} />
+  </GraphBlock>
+
+  <SectionTitle
+    eyebrow="Chapitre narratif"
+    title="Trois leviers pour faire basculer les habitudes"
+    description="Au-delà de la comparaison carbone, il est essentiel de reconnecter l’impact à des bénéfices concrets pour le voyageur."
+  />
+
+  <section class="mx-auto mt-10 max-w-5xl space-y-12 px-4 sm:px-6 lg:px-8">
+    <article class="rounded-3xl border border-slate/10 bg-snow/90 p-8 shadow-sm" data-reveal>
+      <h3 class="text-xl font-semibold text-slate">1. Raconter le voyage différemment</h3>
+      <p class="mt-4 text-base text-slate/80">
+        Mettre en avant le temps utile, la sérénité du départ en centre-ville, l’absence d’embouteillages. Le train n’est pas
+        seulement un mode de transport : c’est un sas qui prépare au séjour.
+      </p>
+    </article>
+    <article class="rounded-3xl border border-slate/10 bg-snow/90 p-8 shadow-sm" data-reveal>
+      <h3 class="text-xl font-semibold text-slate">2. Quantifier les gains collectifs</h3>
+      <p class="mt-4 text-base text-slate/80">
+        En basculant 10 % des trajets voiture vers le rail, la France économiserait l’équivalent des émissions annuelles d’une
+        ville moyenne. Ces chiffres renforcent le discours auprès des institutions.
+      </p>
+    </article>
+    <article class="rounded-3xl border border-slate/10 bg-snow/90 p-8 shadow-sm" data-reveal>
+      <h3 class="text-xl font-semibold text-slate">3. Valoriser les destinations prêtes</h3>
+      <p class="mt-4 text-base text-slate/80">
+        Des festivals aux parcs naturels, beaucoup d’acteurs ont déjà travaillé leur accessibilité en train. Mettre ces initiatives
+        en lumière inspire d’autres territoires à suivre.
+      </p>
+    </article>
+  </section>
+
+  <GraphBlock
+    eyebrow="Sobriété énergétique"
+    title="Le train reste l’option la plus sobre en 2024"
+    description="Ce graphique interactif met en perspective l’écart d’émissions par passager-kilomètre. Utilisez-le pour appuyer une conférence ou un atelier pédagogique."
+    reverse
+  >
+    <div id="graph-trainco2" class="min-h-[420px]"></div>
+    <script type="module" src="/scripts/trainCO2.js"></script>
+  </GraphBlock>
+
+  <CallToAction
+    title="Montrer l’impact, c’est déjà agir"
+    subtitle="Poursuivez l’exploration avec les bénéfices vécus par les voyageurs : confort, budget, expérience. C’est la suite logique du récit."
+    primaryLabel="Comprendre l’expérience voyageur"
+    primaryHref="/train"
+    secondaryLabel="Visualiser toutes les données"
+    secondaryHref="/visualisation"
+  />
+</Layout>
