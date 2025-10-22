@@ -9,21 +9,39 @@ type Props = {
 };
 
 const { title, eyebrow, description, legend, reverse = false, source } = Astro.props as Props;
+const modalId = `graph-modal-${Math.random().toString(36).slice(2, 8)}`;
 ---
 
-<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+<section
+  class="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8"
+  data-graph-block
+  data-graph-id={modalId}
+>
   <div
     class={`grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] ${
       reverse ? "lg:grid-flow-col-dense" : ""
     }`}
   >
-    <div class={`space-y-6 ${reverse ? "lg:order-2" : ""}`} data-reveal>
-      {eyebrow && (
-        <p class="text-xs uppercase tracking-[0.4em] text-forest">
-          {eyebrow}
-        </p>
-      )}
-      <h3 class="text-2xl font-semibold text-slate sm:text-3xl">{title}</h3>
+    <div class={`space-y-6 ${reverse ? "lg:order-2" : ""}`} data-graph-info>
+      <div class="flex items-start justify-between gap-4">
+        <div class="space-y-2">
+          {eyebrow && (
+            <p class="text-xs uppercase tracking-[0.4em] text-forest">
+              {eyebrow}
+            </p>
+          )}
+          <h3 class="text-2xl font-semibold text-slate sm:text-3xl">{title}</h3>
+        </div>
+        <button
+          type="button"
+          class="inline-flex items-center gap-2 rounded-full border border-slate/20 bg-snow/70 px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-slate shadow-sm transition hover:border-sncf hover:text-sncf focus:outline-none focus-visible:ring-2 focus-visible:ring-sncf/60"
+          data-graph-expand
+          aria-haspopup="dialog"
+          aria-controls={modalId}
+        >
+          🔍 Agrandir
+        </button>
+      </div>
       {description && <p class="text-base text-slate/80">{description}</p>}
       {legend && (
         <div class="rounded-2xl border border-slate/10 bg-snow/60 p-4 text-sm text-slate/80 shadow-sm">
@@ -38,8 +56,122 @@ const { title, eyebrow, description, legend, reverse = false, source } = Astro.p
       <slot name="actions" />
     </div>
 
-    <div class={`relative rounded-3xl border border-slate/10 bg-snow/90 p-4 shadow-lg ${reverse ? "lg:order-1" : ""}`} data-reveal>
-      <slot />
+    <div
+      class={`relative rounded-3xl border border-slate/10 bg-snow/90 p-4 shadow-lg ${reverse ? "lg:order-1" : ""}`}
+      data-graph-placeholder
+    >
+      <div class="graph-block__visual" data-graph-content>
+        <slot />
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="graph-block__modal hidden"
+    id={modalId}
+    data-graph-modal
+    aria-hidden="true"
+  >
+    <div class="graph-block__modal-backdrop" data-graph-close></div>
+    <div
+      class="graph-block__modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Visualisation : ${title}`}
+      tabindex="-1"
+    >
+      <div class="graph-block__modal-header">
+        <h3 class="text-lg font-semibold text-slate">{title}</h3>
+        <button
+          type="button"
+          class="inline-flex items-center justify-center rounded-full border border-slate/20 bg-snow px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wide text-slate transition hover:border-sncf hover:text-sncf focus:outline-none focus-visible:ring-2 focus-visible:ring-sncf/60"
+          data-graph-close
+        >
+          Fermer
+        </button>
+      </div>
+      <div class="graph-block__modal-body" data-graph-modal-slot></div>
+      {(legend || source) && (
+        <div class="graph-block__modal-footer">
+          {legend && (
+            <div class="rounded-xl border border-slate/10 bg-snow/90 p-4 text-xs text-slate/70 shadow-sm">
+              {legend}
+            </div>
+          )}
+          {source && (
+            <p class="text-[10px] uppercase tracking-[0.3em] text-slate/50">
+              Source : {source}
+            </p>
+          )}
+        </div>
+      )}
     </div>
   </div>
 </section>
+
+<script client:load>
+  if (!window.__graphBlockModalInit) {
+    window.__graphBlockModalInit = true;
+    const blocks = Array.from(document.querySelectorAll("[data-graph-block]"));
+    const body = document.body;
+
+    blocks.forEach((block) => {
+      const expandBtn = block.querySelector("[data-graph-expand]");
+      const modal = block.querySelector("[data-graph-modal]");
+      const modalSlot = modal?.querySelector("[data-graph-modal-slot]");
+      const placeholder = block.querySelector("[data-graph-placeholder]");
+      const content = block.querySelector("[data-graph-content]");
+      const backdrop = modal?.querySelector(".graph-block__modal-backdrop");
+      const closeButtons = modal?.querySelectorAll("[data-graph-close]");
+
+      if (!(expandBtn && modal && modalSlot && placeholder && content)) return;
+
+      let lastFocused = null;
+
+      const onKeydown = (event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          close();
+        }
+      };
+
+      const open = () => {
+        lastFocused = document.activeElement;
+        modalSlot.appendChild(content);
+        modal.classList.remove("hidden");
+        modal.setAttribute("aria-hidden", "false");
+        block.classList.add("graph-block--expanded");
+        body.classList.add("graph-modal-open");
+        document.addEventListener("keydown", onKeydown);
+        requestAnimationFrame(() => {
+          const closeRef = modal.querySelector("[data-graph-close]");
+          if (closeRef instanceof HTMLElement) {
+            closeRef.focus();
+          }
+        });
+      };
+
+      const close = () => {
+        placeholder.appendChild(content);
+        modal.classList.add("hidden");
+        modal.setAttribute("aria-hidden", "true");
+        block.classList.remove("graph-block--expanded");
+        body.classList.remove("graph-modal-open");
+        document.removeEventListener("keydown", onKeydown);
+        if (lastFocused instanceof HTMLElement) {
+          lastFocused.focus();
+        } else if (expandBtn instanceof HTMLElement) {
+          expandBtn.focus();
+        }
+      };
+
+      expandBtn.addEventListener("click", () => open());
+
+      closeButtons?.forEach((btn) =>
+        btn.addEventListener("click", () => close())
+      );
+
+      backdrop?.addEventListener("click", () => close());
+    });
+  }
+</script>
