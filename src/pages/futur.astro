@@ -59,6 +59,19 @@ const levers = [
   </GraphBlock>
 
   <GraphBlock
+    eyebrow="Fréquentation"
+    title="Évolution du nombre de voyageurs ferroviaires (2010–2024)"
+    description="Suivez la progression du nombre de passagers transportés par type de service (TGV, TER, Intercités…). Le sélecteur intégré permet de zoomer sur un segment ou de garder la vision globale."
+    source="INSEE.fr"
+  >
+    <div id="graph-voyageurs" class="min-h-[420px]"></div>
+    <script type="module" src="/scripts/voyageurs.js"></script>
+    <p class="mt-4 text-sm text-slate/70">
+      Lecture : choisissez un type de service pour observer sa dynamique annuelle, ou laissez la vue globale pour apprécier la croissance combinée du réseau ferroviaire.
+    </p>
+  </GraphBlock>
+
+  <GraphBlock
     eyebrow="Projection"
     title="Mobilité 2035 : fréquentation et CO₂"
     description="Simulez l’impact d’un report modal de 10 % : la fréquentation ferroviaire grimpe, les émissions globales baissent. Un scénario inspirant pour vos plaidoyers."
