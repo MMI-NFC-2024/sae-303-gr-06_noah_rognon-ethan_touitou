@@ -1,8 +1,10 @@
----
+﻿---
 import * as Plot from "@observablehq/plot";
 import { JSDOM } from "jsdom";
+
 const { options } = Astro.props;
 
+// Nécessaire pour que Plot puisse créer le DOM côté serveur
 const plot = Plot.plot({ ...options, document: new JSDOM("").window.document });
 ---
 
