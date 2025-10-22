@@ -54,6 +54,7 @@ const insights = [
     title="Carte du réseau ferroviaire et des lieux culturels"
     description="Les lignes (noires) composent l’ossature, les gares (rouges) sont autant de portes, les équipements culturels (bleus) incarnent la vie locale. Idéal pour une introduction macro."
     legend="Source : données SNCF (gares, lignes) et Google Basilic (équipements culturels)."
+    source="defis.data.gouv.fr"
   >
     <PlotFigure slot="default" options={plotOptions1} />
   </GraphBlock>
@@ -69,6 +70,7 @@ const insights = [
     title="Carte filtrable du réseau"
     description="Montrez uniquement les gares pour parler service public, ou seulement les lignes pour insister sur la connectivité inter-régions."
     reverse
+    source="defis.data.gouv.fr"
   >
     <div class="space-y-4">
       <label class="text-sm font-semibold text-slate" for="filtre-carte">
@@ -97,6 +99,7 @@ const insights = [
     eyebrow="Lecture hebdomadaire"
     title="Disponibilité moyenne des offres TGVMax"
     description="Identifiez d’un coup d’œil les axes saturés et ceux encore sous-exploités. Les zones claires signalent des opportunités à promouvoir."
+    source="defis.data.gouv.fr"
   >
     <div id="graph-tgvmax" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/tgvmax.js"></script>
@@ -107,6 +110,7 @@ const insights = [
     title="Disponibilité par axe et par jour"
     description="Chaque cellule correspond à un jour et un axe. Les étoiles indiquent un taux supérieur à 50 %. Pratique pour anticiper les pics de fréquentation."
     reverse
+    source="defis.data.gouv.fr"
   >
     <div id="ah" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/disponibilite.js"></script>
@@ -116,6 +120,7 @@ const insights = [
     eyebrow="Comparaison"
     title="Taux de disponibilité par axe TGV"
     description="Analysez les performances par ligne pour adapter votre stratégie tarifaire ou marketing."
+    source="defis.data.gouv.fr"
   >
     <div id="graph-tgvmax-axe" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/tgvmaxDispo.js"></script>

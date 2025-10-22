@@ -57,6 +57,7 @@ const benefits = [
     title="Train vs voiture : l’écart se resserre depuis 2010"
     description="Les courbes montrent un rapprochement des coûts au 100 km, tandis que la ligne pointillée verte estime le CO₂ économisé. Un récit double : maîtriser son budget tout en faisant un geste pour la planète."
     legend="Lecture : pour 100 km, le train coûte 12,3 € en 2024 contre 10,7 € pour la voiture. La ligne verte indique le gain carbone."
+    source="INSEE.fr"
   >
     <PlotFigure slot="default" options={plotOptions4} />
   </GraphBlock>
@@ -66,6 +67,7 @@ const benefits = [
     title="Explorer l’évolution des coûts par transport"
     description="Utilisez le filtre pour observer séparément train et voiture. Idéal pour enrichir une présentation et détailler les années clés."
     reverse
+    source="INSEE.fr"
   >
     <div class="space-y-4">
       <label class="text-sm font-semibold text-slate" for="filtreMode">
@@ -94,6 +96,7 @@ const benefits = [
     eyebrow="Perception"
     title="Les avantages du train face aux contraintes de la voiture"
     description="Un nuage de points pour visualiser les bénéfices ressentis. Chaque point raconte une histoire : confort, sérénité, mobilité de proximité."
+    source="defis.data.gouv.fr"
   >
     <div class="space-y-4">
       <label class="text-sm font-semibold text-slate" for="filtreAvantages">

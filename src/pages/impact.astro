@@ -63,6 +63,7 @@ const stats = [
     title="Sur 500 km, le rail divise par dix les émissions"
     description="Avion, voiture, train : cette visualisation résume la hiérarchie carbone des trajets moyens. Un argument clé pour convaincre voyageurs, festivals ou offices de tourisme."
     legend="Source : ADEME, SNCF — émissions moyennes estimées pour un trajet de 500 km en 2024."
+    source="INSEE.fr"
   >
     <PlotFigure slot="default" options={plotOptions2} />
   </GraphBlock>
@@ -102,6 +103,7 @@ const stats = [
     title="Le train reste l’option la plus sobre en 2024"
     description="Ce graphique interactif met en perspective l’écart d’émissions par passager-kilomètre. Utilisez-le pour appuyer une conférence ou un atelier pédagogique."
     reverse
+    source="INSEE.fr"
   >
     <div id="graph-trainco2" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/trainCO2.js"></script>

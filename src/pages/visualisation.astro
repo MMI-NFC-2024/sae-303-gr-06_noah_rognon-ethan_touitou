@@ -40,6 +40,7 @@ import {
     title="Les voies ferrées relient gares et lieux culturels"
     description="La densité du réseau SNCF rend les grandes salles comme les petits lieux associatifs accessibles. Les points rouges signalent les gares voyageurs, les points bleus les équipements culturels recensés."
     legend="Noir : lignes ferroviaires. Rouge : gares SNCF. Bleu : équipements culturels (archives, bibliothèques, théâtres, cinémas)."
+    source="defis.data.gouv.fr"
   >
     <PlotFigure slot="default" options={plotOptions1} />
   </GraphBlock>
@@ -49,6 +50,7 @@ import {
     title="Un trajet en train émet jusqu’à 20× moins de CO₂"
     description="Comparer les émissions moyennes par passager sur 500 km rend la bascule vers le rail tangible. L’avion reste la solution la plus carbonée pour les distances domestiques."
     legend="Lecture verticale : kilogrammes de CO₂ émis par passager pour 500 km selon le mode de transport."
+    source="INSEE.fr"
   >
     <PlotFigure slot="default" options={plotOptions2} />
   </GraphBlock>
@@ -59,6 +61,7 @@ import {
     description="Cette carte identifie les événements accessibles à pied, à vélo ou en navette légère depuis une gare SNCF. Elle éclaire les partenariats à tisser entre organisateurs et opérateurs de mobilité."
     legend="Vert : festival situé à ≤ 10 km d’une gare. Rouge : festival au-delà de 10 km. Gris : densité des gares voyageurs."
     reverse
+    source="defis.data.gouv.fr"
   >
     <PlotFigure slot="default" options={plotOptions3} />
   </GraphBlock>
@@ -68,6 +71,7 @@ import {
     title="Évolution du coût et du CO₂ économisé depuis 2010"
     description="Le train reste légèrement plus cher que la voiture au 100 km, mais le différentiel se réduit. La courbe verte estime le CO₂ évité en choisissant le rail."
     legend="Lignes pleines : coût moyen pour 100 km (train vs voiture). Pointillé vert : CO₂ économisé, en kg / 100 km."
+    source="INSEE.fr"
   >
     <PlotFigure slot="default" options={plotOptions4} />
   </GraphBlock>
@@ -82,6 +86,7 @@ import {
     eyebrow="Mobilité quotidienne"
     title="Comparaison du coût selon le mode de transport"
     description="Filtrez le graphique pour comparer le prix moyen au 100 km entre train et voiture par année. Les données mettent en évidence une convergence progressive."
+    source="INSEE.fr"
   >
     <div class="space-y-4">
       <label class="text-sm font-semibold text-slate" for="filtreMode">
@@ -106,6 +111,7 @@ import {
     description="Ce nuage de points compare perception et réalité : confort, empreinte carbone, sérénité d’un côté ; stress, pollution et dépendance à la voiture de l’autre."
     legend="Utilisez le filtre pour isoler les points à forte valeur narrative et construire votre argumentaire marketing."
     reverse
+    source="defis.data.gouv.fr"
   >
     <div class="space-y-4">
       <label class="text-sm font-semibold text-slate" for="filtreAvantages">
@@ -128,6 +134,7 @@ import {
     eyebrow="Réservation"
     title="Disponibilité moyenne des offres TGVMax par axe"
     description="Visualisez les lignes où la demande dépasse l’offre. Les zones claires signalent des opportunités commerciales, les zones foncées des tensions de disponibilité."
+    source="defis.data.gouv.fr"
   >
     <div id="graph-tgvmax" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/tgvmax.js"></script>
@@ -138,6 +145,7 @@ import {
     title="Accessibilité touristique autour des gares"
     description="Carte interactive des points d’intérêt accessibles depuis chaque gare. Croisez type de lieu et densité pour prioriser vos actions locales."
     reverse
+    source="defis.data.gouv.fr"
   >
     <div id="graph-accessibilite" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/tourisme.js"></script>
@@ -147,6 +155,7 @@ import {
     eyebrow="Part modale"
     title="Évolution des modes de transport en France"
     description="Le graphique retrace la progression du train, la baisse de la voiture particulière et la stabilité de l’avion. Il accompagne un récit macro des comportements de mobilité."
+    source="INSEE.fr"
   >
     <div id="graph-partmodale" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/partModale.js"></script>
@@ -157,6 +166,7 @@ import {
     title="Le train, champion du climat"
     description="Comparez les émissions par passager-kilomètre en 2024. Idéal pour un argumentaire de sensibilisation ou une campagne grand public."
     reverse
+    source="INSEE.fr"
   >
     <div id="graph-trainco2" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/trainCO2.js"></script>
@@ -166,6 +176,7 @@ import {
     eyebrow="Prospective"
     title="Mobilité 2035 : scénarios de transition modale"
     description="Cette projection modélise le report modal de 10 % des trajets voiture vers le train. Elle illustre l’impact potentiel sur la fréquentation et les émissions globales."
+    source="INSEE.fr"
   >
     <div id="graph-mobilite2035" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/mobilite2035.js"></script>
@@ -176,6 +187,7 @@ import {
     title="Gares, lieux touristiques et festivals"
     description="Combinez filtres par catégorie culturelle ou discipline pour révéler des itinéraires inédits. L’outil met en avant les synergies entre rail et tourisme."
     reverse
+    source="defis.data.gouv.fr"
   >
     <div id="graph-tourisme" class="min-h-[460px]"></div>
     <script type="module" src="/scripts/tourismeCarte.js"></script>
@@ -185,6 +197,7 @@ import {
     eyebrow="Offre TGVMax"
     title="Taux de disponibilité TGVMax par axe"
     description="Analyses comparatives pour piloter la capacité : identifiez les axes saturés, les périodes de tension et les opportunités de renfort."
+    source="defis.data.gouv.fr"
   >
     <div id="graph-tgvmax-axe" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/tgvmaxDispo.js"></script>
@@ -195,6 +208,7 @@ import {
     title="Accessibilité touristique selon le rayon"
     description="Ajustez le rayon et le type de point d’intérêt pour mesurer le potentiel d’une gare. Outil précieux pour les offices de tourisme et collectivités."
     reverse
+    source="defis.data.gouv.fr"
   >
     <div id="graph-accessibilite-rayon" class="min-h-[440px]"></div>
     <script type="module" src="/scripts/accessibilite-rayon.js"></script>
@@ -204,6 +218,7 @@ import {
     eyebrow="Taux journalier"
     title="TGVMax : disponibilité jour par jour"
     description="Chaque cellule représente un axe et un jour. Les étoiles signalent un taux de disponibilité supérieur à 50 %, utile pour anticiper les pics."
+    source="defis.data.gouv.fr"
   >
     <div id="ah" class="min-h-[420px]"></div>
     <script type="module" src="/scripts/disponibilite.js"></script>
@@ -214,6 +229,7 @@ import {
     title="Réseau ferroviaire et équipements culturels"
     description="Activez les filtres pour afficher les gares, les lignes ou l’ensemble des données. Une navigation idéale pour illustrer le maillage territorial."
     reverse
+    source="defis.data.gouv.fr"
   >
     <div class="space-y-4">
       <label class="text-sm font-semibold text-slate" for="filtre-carte">

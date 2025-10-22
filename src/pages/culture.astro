@@ -54,6 +54,7 @@ const storytelling = [
     title="Festivals accessibles à moins de 10 km d’une gare"
     description="Les points verts illustrent la proximité entre grands événements et réseau ferroviaire. Les points rouges révèlent les zones où des solutions de navettes ou de vélos partagés pourraient faire la différence."
     legend="Vert : festival à ≤ 10 km d’une gare. Rouge : au-delà de 10 km. Gris : réseau de gares voyageurs."
+    source="defis.data.gouv.fr"
   >
     <PlotFigure slot="default" options={plotOptions3} />
   </GraphBlock>
@@ -69,6 +70,7 @@ const storytelling = [
     title="Gares, lieux touristiques et festivals"
     description="Croisez les catégories culturelles, repérez les synergies possibles et concevez des séjours complets sans voiture."
     reverse
+    source="defis.data.gouv.fr"
   >
     <div id="graph-tourisme" class="min-h-[460px]"></div>
     <script type="module" src="/scripts/tourismeCarte.js"></script>
