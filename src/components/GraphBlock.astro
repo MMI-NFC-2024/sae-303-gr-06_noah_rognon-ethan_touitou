@@ -110,12 +110,11 @@ const modalId = `graph-modal-${Math.random().toString(36).slice(2, 8)}`;
 </section>
 
 <script client:load>
-  if (!window.__graphBlockModalInit) {
-    window.__graphBlockModalInit = true;
-    const blocks = Array.from(document.querySelectorAll("[data-graph-block]"));
-    const body = document.body;
+  if (!window.__graphBlockModalController) {
+    const initBlock = (block) => {
+      if (!(block instanceof HTMLElement)) return;
+      if (block.dataset.graphInit === "true") return;
 
-    blocks.forEach((block) => {
       const expandBtn = block.querySelector("[data-graph-expand]");
       const modal = block.querySelector("[data-graph-modal]");
       const modalSlot = modal?.querySelector("[data-graph-modal-slot]");
@@ -123,9 +122,13 @@ const modalId = `graph-modal-${Math.random().toString(36).slice(2, 8)}`;
       const content = block.querySelector("[data-graph-content]");
       const backdrop = modal?.querySelector(".graph-block__modal-backdrop");
       const closeButtons = modal?.querySelectorAll("[data-graph-close]");
+      const body = document.body;
 
-      if (!(expandBtn && modal && modalSlot && placeholder && content)) return;
+      if (!(expandBtn && modal && modalSlot && placeholder && content)) {
+        return;
+      }
 
+      block.dataset.graphInit = "true";
       let lastFocused = null;
 
       const onKeydown = (event) => {
@@ -165,13 +168,26 @@ const modalId = `graph-modal-${Math.random().toString(36).slice(2, 8)}`;
         }
       };
 
-      expandBtn.addEventListener("click", () => open());
+      expandBtn.addEventListener("click", open);
+      closeButtons?.forEach((btn) => btn.addEventListener("click", close));
+      backdrop?.addEventListener("click", close);
+    };
 
-      closeButtons?.forEach((btn) =>
-        btn.addEventListener("click", () => close())
-      );
+    const initAll = () =>
+      document
+        .querySelectorAll("[data-graph-block]")
+        .forEach((block) => initBlock(block));
 
-      backdrop?.addEventListener("click", () => close());
-    });
+    window.__graphBlockModalController = { initAll };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initAll, { once: true });
+    } else {
+      initAll();
+    }
+
+    document.addEventListener("astro:after-swap", initAll);
+  } else {
+    window.__graphBlockModalController.initAll();
   }
 </script>
